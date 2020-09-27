@@ -33,6 +33,8 @@ let questions = [{
 }
 ];
 
+var results = 0;
+
 //Timer Function
 function startTimer(duration, display) {
     var timer = duration;
@@ -60,6 +62,7 @@ var quizOptEl = document.querySelector(".quiz-options");
 var quizQueEl = document.querySelector(".quiz-question");
 timeDisplay = document.querySelector('#time');
 var optionsBtnEl = document.querySelector(".options-class");
+var Result = 0;
 
 quizOptEl.addEventListener("click",function(event)
 {
@@ -67,21 +70,30 @@ event.preventDefault();
 var ind = event.target.getAttribute('index-value');
 if(event.target.textContent === questions[ind].answer)
 {
+  incResult();
   count = ++ind;
   quizDuration = quizDuration + 5;
   startTimer(quizDuration, timeDisplay);
   setOptions(count);
+  console.log("count from correct"+count);
 }
 else{
    count = ++ind; 
    quizDuration = quizDuration - 5;
    startTimer(quizDuration, timeDisplay);
    setOptions(count);
+   console.log("count from incorrect"+count);
 }
 });
 
 
+//Increment the result
+function incResult(){
+    Result++;
+console.log(Result);
+}
 
+console.log(Result +"from outside");
 
 //Start Quiz Trigger
 startBtnEl.addEventListener("click", function(){
@@ -94,13 +106,15 @@ startBtnEl.addEventListener("click", function(){
 });
 
 //setting Options and the Question Required
-
+console.log(questions.length);
 function setOptions(i){
 
     while(quizOptEl.firstChild)
     {
       quizOptEl.removeChild(quizOptEl.firstChild);
     }
+    if(i < questions.length)
+    {
     quizQueEl.textContent = questions[i].question;
     for(var j= 0 ; j < 4 ;j++)
         {
@@ -126,6 +140,14 @@ function setOptions(i){
             quizOptEl.appendChild(breakEl);
             
         }
+     }
+     else
+     {
+        quizQueEl.textContent = "The Quiz has been successfully completed";
+        var inputEl = document.createElement("input");
+        quizQueEl.appendChild(inputEl);
+        
+     }
 }
 
 
