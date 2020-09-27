@@ -1,3 +1,39 @@
+//Array of questions for the quiz
+
+let questions = [{
+    question:"Who was the Inventor of JavaScript?",
+    options:["Satya Nadella","Anushree","Tim Cook","Brendan Eich"],
+    answer:"Brendan Eich"
+},
+
+{
+    question:"who is the father of CSS?",
+    options:["Wium Lie","Babu khan","Sundhar Pichai","Barber"],
+    answer:"Wium Lie"
+},
+{
+    question:"who is the inventor of HTML?",
+    options:["Wium Lie","Tim Berners-Lee","Mark","Amrananda"],
+    answer:"Tim Berners-Lee"
+},
+{
+    question:"who is the founder of Facebook?",
+    options:["Tim Cook","Mark","Justin Beber","jackson"],
+    answer:"Mark"
+},
+{
+    question:"who is the founder of Google?",
+    options:["Sundar Pichai","Satya Nadella","Sergey Brin","Justin"],
+    answer:"Sergey Brin"
+},
+{
+    question:"who is the founder of Apple?",
+    options:["Sundar Pichai","Satya Nadella","Steve Jobs","Erin Smith"],
+    answer:"Steve Jobs"
+}
+];
+
+//Timer Function
 function startTimer(duration, display) {
     var timer = duration;
     
@@ -10,29 +46,12 @@ function startTimer(duration, display) {
 
         display.textContent = minutes + ":" + seconds;
         timer = timer - 1;
-// console.log(timer);
 if(timer == -1)
 {
     clearInterval(interval);
-    // alert("The quiz has been ended");
 }
     }, 1000);
 }
-
-
-let questions = [{
-
-    question:"How are you?",
-    options:["good","bad","not atol good"],
-    answer:"good"
-},
-
-{
-    question:"How are you anu?",
-    options:["good","bad","not atol good"],
-    answer:"bad"
-}
-];
 
 var startBtnEl = document.getElementById("start-quiz");
 var quizDescEl = document.querySelector(".quiz-description");
@@ -45,30 +64,45 @@ var optionsBtnEl = document.querySelector(".options-class");
 quizOptEl.addEventListener("click",function(event)
 {
 event.preventDefault();
-alert(event.target.textContent);
-alert(event.target.getAttribute('index-value'));
 var ind = event.target.getAttribute('index-value');
 if(event.target.textContent === questions[ind].answer)
 {
- alert('hurray answer matched');
+  count = ++ind;
+  quizDuration = quizDuration + 5;
+  startTimer(quizDuration, timeDisplay);
+  setOptions(count);
 }
 else{
-    alert('answer not matched');
+   count = ++ind; 
+   quizDuration = quizDuration - 5;
+   startTimer(quizDuration, timeDisplay);
+   setOptions(count);
 }
 });
 
 
 
 
-
+//Start Quiz Trigger
 startBtnEl.addEventListener("click", function(){
 
     quizDescEl.remove();
     startBtnEl.remove();
     startTimer(quizDuration, timeDisplay); 
-    var i = 0;
+    setOptions(0);
+ 
+});
+
+//setting Options and the Question Required
+
+function setOptions(i){
+
+    while(quizOptEl.firstChild)
+    {
+      quizOptEl.removeChild(quizOptEl.firstChild);
+    }
     quizQueEl.textContent = questions[i].question;
-    for(var j= 0 ; j <3 ;j++)
+    for(var j= 0 ; j < 4 ;j++)
         {
 
             //create a button
@@ -92,8 +126,7 @@ startBtnEl.addEventListener("click", function(){
             quizOptEl.appendChild(breakEl);
             
         }
- 
-});
+}
 
 
 
