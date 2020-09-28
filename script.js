@@ -50,6 +50,7 @@ function startTimer(duration, display) {
         timer = timer - 1;
 if(timer == -1)
 {
+    endGame();
     clearInterval(interval);
 }
     }, 1000);
@@ -62,7 +63,11 @@ var quizOptEl = document.querySelector(".quiz-options");
 var quizQueEl = document.querySelector(".quiz-question");
 timeDisplay = document.querySelector('#time');
 var optionsBtnEl = document.querySelector(".options-class");
+var correctAnsEl = document.querySelector(".correct-answer");
+var wrongAnsEl = document.querySelector(".wrong-answer");
 var Result = 0;
+
+//Evaluating the options selected and adding it to the Result count
 
 quizOptEl.addEventListener("click",function(event)
 {
@@ -72,28 +77,18 @@ if(event.target.textContent === questions[ind].answer)
 {
   incResult();
   count = ++ind;
-  quizDuration = quizDuration + 5;
-  startTimer(quizDuration, timeDisplay);
-  setOptions(count);
-  console.log("count from correct"+count);
+ setOptions(count);
 }
 else{
    count = ++ind; 
-   quizDuration = quizDuration - 5;
-   startTimer(quizDuration, timeDisplay);
-   setOptions(count);
-   console.log("count from incorrect"+count);
+   setOptions(count); 
 }
 });
-
 
 //Increment the result
 function incResult(){
     Result++;
-console.log(Result);
 }
-
-console.log(Result +"from outside");
 
 //Start Quiz Trigger
 startBtnEl.addEventListener("click", function(){
@@ -106,12 +101,13 @@ startBtnEl.addEventListener("click", function(){
 });
 
 //setting Options and the Question Required
-console.log(questions.length);
-function setOptions(i){
 
+function setOptions(i){
+    console.log("Test");
     while(quizOptEl.firstChild)
     {
       quizOptEl.removeChild(quizOptEl.firstChild);
+     
     }
     if(i < questions.length)
     {
@@ -143,12 +139,36 @@ function setOptions(i){
      }
      else
      {
-        quizQueEl.textContent = "The Quiz has been successfully completed";
-        var inputEl = document.createElement("input");
-        quizQueEl.appendChild(inputEl);
-        
+         endGame(); 
      }
 }
 
+//Function to end the game when the time is up
+
+function endGame(){
+    quizQueEl.textContent = "The Quiz has been successfully completed, Please enter your initials below to register your score";
+    while(quizOptEl.firstChild)
+    {
+      quizOptEl.removeChild(quizOptEl.firstChild);
+    }
+        var inputEl = document.createElement("input");
+        var breakEl = document.createElement("br");
+        var submitInitialsEl = document.createElement("button");
+        submitInitialsEl.textContent = "Submit Score";
+
+
+        quizQueEl.appendChild(breakEl);
+        quizQueEl.appendChild(inputEl);
+        quizQueEl.appendChild(submitInitialsEl);
+        submitInitialsEl.addEventListener("click",function(){
+            var existingResult = localStorage.getItem("Highest score");
+            console.log(existingResult);
+            if(existingResult < Result)
+            {
+            localStorage.setItem("Initials",inputEl.value);
+            localStorage.setItem("Highest score",Result);
+            }
+        });
+}
 
 
