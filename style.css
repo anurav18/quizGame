@@ -1,0 +1,48 @@
+.bg-body{
+    background-image:url(./Assets/quiz-Image.jpeg);
+}
+
+.btn{
+ margin: 20px;
+ background-color: blue;
+}
+
+.btn:hover{
+    background-color: skyblue;
+}
+
+.options-class{
+    background-color: pink;
+    display: inline;
+ 
+}
+
+.quiz-options{
+    height: 400px;
+    width: 800px;
+    align-items: center;
+    padding-left: 300px;
+    
+}
+
+
+/* Highest Score Page Styles */
+
+table,th,td{
+    border:1px solid black;
+    border-collapse:collapse;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+table.center{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#highest-score{
+    text-align: center; 
+    padding-top: 100px;
+    padding-bottom: 50px; 
+}
+

@@ -75,6 +75,7 @@ event.preventDefault();
 var ind = event.target.getAttribute('index-value');
 if(event.target.textContent === questions[ind].answer)
 {
+    event.target.setAttribute("style","background-color:green;");
   incResult();
   count = ++ind;
  setOptions(count);
@@ -146,7 +147,7 @@ function setOptions(i){
 //Function to end the game when the time is up
 
 function endGame(){
-    quizQueEl.textContent = "The Quiz has been successfully completed, Please enter your initials below to register your score";
+    quizQueEl.innerHTML = "The Quiz has been successfully completed! </br> <strong>Your Score: "+Result+"</strong><br> Please enter your initials below to register your score";
     while(quizOptEl.firstChild)
     {
       quizOptEl.removeChild(quizOptEl.firstChild);
@@ -155,20 +156,26 @@ function endGame(){
         var breakEl = document.createElement("br");
         var submitInitialsEl = document.createElement("button");
         submitInitialsEl.textContent = "Submit Score";
+        submitInitialsEl.setAttribute("class","btn btn-dark");
+        
 
 
         quizQueEl.appendChild(breakEl);
         quizQueEl.appendChild(inputEl);
         quizQueEl.appendChild(submitInitialsEl);
+        
         submitInitialsEl.addEventListener("click",function(){
             var existingResult = localStorage.getItem("Highest score");
-            console.log(existingResult);
+            
             if(existingResult < Result)
             {
             localStorage.setItem("Initials",inputEl.value);
             localStorage.setItem("Highest score",Result);
             }
+            location.href = "./index.html";
         });
 }
+
+
 
 
