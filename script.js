@@ -34,57 +34,121 @@ let questions = [{
 ];
 
 var results = 0;
-
-//Timer Function
-function startTimer(duration, display) {
-    var timer = duration;
+//Timer 
+// function startTimer(duration,source) {
+//    console.log("Start timer function");
+//     var timer = duration;
     
-  const interval =   setInterval(function () {
-         var minutes = parseInt(timer / 60, 10);
-        var seconds = parseInt(timer % 60, 10);
+//   const interval = setInterval(function () {
+    
+//          console.log("called set timer set Interval");
+//         var seconds = parseInt(timer,10);
+//         // var seconds = seconds < 10 ? "0" + seconds : seconds;
+//         timeDisplay.textContent = seconds;
+//         console.log(timeDisplay.textContent);
+//         timer = timer - 1;
+// if(timer == -1)
+// {
+//     endGame();
+//     clearInterval(interval);
+// }
+//     }, 1000);
+// }
 
-        var minutes = minutes < 10 ? "0" + minutes : minutes;
-        var seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds;
-        timer = timer - 1;
-if(timer == -1)
-{
-    endGame();
-    clearInterval(interval);
-}
-    }, 1000);
-}
+
+var invoke = function() {
+    var sec = 60;
+    function startTimer(){
+        
+        var timer = setInterval(function(){
+            sec--;
+            document.getElementById('time').innerHTML='00:'+sec;
+            if (sec < 0 || questions.length > 6) {
+                clearInterval(timer);
+                endGame();
+            }
+        }, 1000);
+    }
+
+    quizOptEl.addEventListener("click",function(event){
+       event.preventDefault();
+       var ind = event.target.getAttribute('index-value');
+   if(event.target.textContent === questions[ind].answer)
+   {
+     incResult();
+     count = ++ind;
+     event.target.style.background = "green"; 
+     setTimeout('setOptions(count)',400);
+   }
+   else
+   {
+   count = ++ind; 
+   event.target.style.background = "red"; 
+   setTimeout('setOptions(count)',400); 
+   sec -= 5;
+   document.getElementById('time').innerHTML='00:'+sec;
+   }
+});
+    startTimer();
+    return
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var startBtnEl = document.getElementById("start-quiz");
 var quizDescEl = document.querySelector(".quiz-description");
-var quizDuration = 60 * 0.25;
+var quizDuration = 45;
 var quizOptEl = document.querySelector(".quiz-options");
 var quizQueEl = document.querySelector(".quiz-question");
-timeDisplay = document.querySelector('#time');
+var timeDisplay = document.querySelector('#time');
 var optionsBtnEl = document.querySelector(".options-class");
-var correctAnsEl = document.querySelector(".correct-answer");
-var wrongAnsEl = document.querySelector(".wrong-answer");
 var Result = 0;
 
 //Evaluating the options selected and adding it to the Result count
 
-quizOptEl.addEventListener("click",function(event)
-{
-event.preventDefault();
-var ind = event.target.getAttribute('index-value');
-if(event.target.textContent === questions[ind].answer)
-{
-    event.target.setAttribute("style","background-color:green;");
-  incResult();
-  count = ++ind;
- setOptions(count);
-}
-else{
-   count = ++ind; 
-   setOptions(count); 
-}
-});
+// quizOptEl.addEventListener("click",function(event)
+// {
+// event.preventDefault();
+// var ind = event.target.getAttribute('index-value');
+// if(event.target.textContent === questions[ind].answer)
+// {
+//   incResult();
+//   count = ++ind;
+//   event.target.style.background = "green"; 
+//  setTimeout('setOptions(count)',400);
+ 
+// }
+// else{
+    
+
+//    count = ++ind; 
+//    event.target.style.background = "red"; 
+//    setTimeout('setOptions(count)',400); 
+// }
+// });
 
 //Increment the result
 function incResult(){
@@ -93,18 +157,37 @@ function incResult(){
 
 //Start Quiz Trigger
 startBtnEl.addEventListener("click", function(){
-
+   
     quizDescEl.remove();
     startBtnEl.remove();
-    startTimer(quizDuration, timeDisplay); 
+    // startTimer(quizDuration,0); 
     setOptions(0);
+    invoke();
+
+    
  
 });
+
+
+//D time interval
+function setTimer() {
+    
+    //game timer
+    var timerInterval = setInterval(function() {
+      secondsLeft--;
+      document.getElementById("seconds").textContent = `Time left ${secondsLeft}`;
+      if(!secondsLeft) {
+        clearInterval(timerInterval);
+        endGame();
+      }
+  
+    }, 1000);
+  }
 
 //setting Options and the Question Required
 
 function setOptions(i){
-    console.log("Test");
+   
     while(quizOptEl.firstChild)
     {
       quizOptEl.removeChild(quizOptEl.firstChild);
@@ -148,6 +231,7 @@ function setOptions(i){
 
 function endGame(){
     quizQueEl.innerHTML = "The Quiz has been successfully completed! </br> <strong>Your Score: "+Result+"</strong><br> Please enter your initials below to register your score";
+   document.querySelector(".navbar-text").style.display = "none";
     while(quizOptEl.firstChild)
     {
       quizOptEl.removeChild(quizOptEl.firstChild);
@@ -178,4 +262,22 @@ function endGame(){
 
 
 
-
+// (function() {
+//     var sec = 60;
+//     function startTimer(){
+//         console.log('timer suppose to go')
+//         var timer = setInterval(function(){
+//             sec--;
+//             document.getElementById('timerDisplay').innerHTML='00:'+sec;
+//             if (sec < 0) {
+//                 clearInterval(timer);
+//                 alert("Time is up!")
+//             }
+//         }, 1000);
+//     }
+//     document.getElementById('incorrect').addEventListener('click', function() {
+//         sec -= 5;
+//         document.getElementById('timerDisplay').innerHTML='00:'+sec;
+//     });
+//     startTimer();
+// })();
