@@ -30,10 +30,7 @@ clearScoreEl.addEventListener("click",function(){
     localStorage.clear();
 })
 
-//Play Again
-redirectEl.addEventListener("click",function(){
-    location.href='./index.html';
-})
+
 
 
 

@@ -14,6 +14,10 @@ This Game is intended to be a mockup of technical quiz which we experience in ou
 
 Highest Score analysis is available , which will give a capability to know the highest score in the game till date. The scores are stored with an Initial Name which is provided at the end of the quiz.
 
+## Watch the below gif to see how the quiz works
+
+![Quiz Demo](./Assets/Images/quiz-image.jpeg)
+
 ## Deployed Links
 
 You can clone this code to your [local repository](https://github.com/anurav18/quizGame) using SSH key. 
