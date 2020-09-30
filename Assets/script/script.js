@@ -101,6 +101,8 @@ startBtnEl.addEventListener("click", function(){
     invoke();
 });
 
+//setting the options for each question
+
 function setOptions(i){
    
     while(quizOptEl.firstChild)
@@ -129,6 +131,7 @@ function setOptions(i){
 }
 
 //End the Game
+
 let userData = JSON.parse(localStorage.getItem("userData")) || [];
 function endGame(){
    quizQueEl.innerHTML = "The Quiz has been successfully completed! </br> <strong>Your Score: "+Result+"</strong><br> Please enter your initials below to register your score";
