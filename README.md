@@ -16,7 +16,7 @@ Highest Score analysis is available , which will give a capability to know the h
 
 ## Watch the below gif to see how the quiz works
 
-![Quiz Demo](./Assets/Images/quiz-image.jpeg)
+![Quiz Demo](/Assets/Images/quiz-Image.jpeg)
 
 ## Deployed Links
 
