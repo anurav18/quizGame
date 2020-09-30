@@ -33,32 +33,21 @@ let questions = [{
 }
 ];
 
-var results = 0;
-//Timer 
-// function startTimer(duration,source) {
-//    console.log("Start timer function");
-//     var timer = duration;
-    
-//   const interval = setInterval(function () {
-    
-//          console.log("called set timer set Interval");
-//         var seconds = parseInt(timer,10);
-//         // var seconds = seconds < 10 ? "0" + seconds : seconds;
-//         timeDisplay.textContent = seconds;
-//         console.log(timeDisplay.textContent);
-//         timer = timer - 1;
-// if(timer == -1)
-// {
-//     endGame();
-//     clearInterval(interval);
-// }
-//     }, 1000);
-// }
+//variable declaration
 
+var startBtnEl = document.getElementById("start-quiz");
+var quizDescEl = document.querySelector(".quiz-description");
+var quizDuration = 45;
+var quizOptEl = document.querySelector(".quiz-options");
+var quizQueEl = document.querySelector(".quiz-question");
+var timeDisplay = document.querySelector('#time');
+var optionsBtnEl = document.querySelector(".options-class");
+var Result = 0;
+var sec = 60;
 
-
+//Start the timer and Evaluate the response
 var invoke = function() {
-    var sec = 60;
+    
     function startTimer(){
         
         var timer = setInterval(function(){
@@ -74,6 +63,7 @@ var invoke = function() {
     quizOptEl.addEventListener("click",function(event){
        event.preventDefault();
        var ind = event.target.getAttribute('index-value');
+       //correct Answer
    if(event.target.textContent === questions[ind].answer)
    {
      incResult();
@@ -81,6 +71,7 @@ var invoke = function() {
      event.target.style.background = "green"; 
      setTimeout('setOptions(count)',400);
    }
+   //Incorrect Answer
    else
    {
    count = ++ind; 
@@ -95,96 +86,20 @@ var invoke = function() {
 };
 
 
+//Increase the Score when the correct answer is clicked
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var startBtnEl = document.getElementById("start-quiz");
-var quizDescEl = document.querySelector(".quiz-description");
-var quizDuration = 45;
-var quizOptEl = document.querySelector(".quiz-options");
-var quizQueEl = document.querySelector(".quiz-question");
-var timeDisplay = document.querySelector('#time');
-var optionsBtnEl = document.querySelector(".options-class");
-var Result = 0;
-
-//Evaluating the options selected and adding it to the Result count
-
-// quizOptEl.addEventListener("click",function(event)
-// {
-// event.preventDefault();
-// var ind = event.target.getAttribute('index-value');
-// if(event.target.textContent === questions[ind].answer)
-// {
-//   incResult();
-//   count = ++ind;
-//   event.target.style.background = "green"; 
-//  setTimeout('setOptions(count)',400);
- 
-// }
-// else{
-    
-
-//    count = ++ind; 
-//    event.target.style.background = "red"; 
-//    setTimeout('setOptions(count)',400); 
-// }
-// });
-
-//Increment the result
 function incResult(){
     Result++;
 }
 
-//Start Quiz Trigger
+//Start Quiz 
 startBtnEl.addEventListener("click", function(){
-   
     quizDescEl.remove();
     startBtnEl.remove();
     // startTimer(quizDuration,0); 
     setOptions(0);
     invoke();
-
-    
- 
 });
-
-
-//D time interval
-function setTimer() {
-    
-    //game timer
-    var timerInterval = setInterval(function() {
-      secondsLeft--;
-      document.getElementById("seconds").textContent = `Time left ${secondsLeft}`;
-      if(!secondsLeft) {
-        clearInterval(timerInterval);
-        endGame();
-      }
-  
-    }, 1000);
-  }
-
-//setting Options and the Question Required
 
 function setOptions(i){
    
@@ -198,27 +113,13 @@ function setOptions(i){
     quizQueEl.textContent = questions[i].question;
     for(var j= 0 ; j < 4 ;j++)
         {
-
-            //create a button
             var btnEl = document.createElement("button");
-
-            //set the content for the button
             btnEl.textContent = questions[i].options[j];
-
-            //create an id attribute
             btnEl.setAttribute("index-value",i);
             btnEl.setAttribute("id",j);
-            btnEl.setAttribute("class","options-class");
-
-            //create a margin 10px
-            btnEl.setAttribute("style","margin:10px;");
-
-            var breakEl = document.createElement("br");
-
-            //append it to the div
+            btnEl.setAttribute("class","quiz-options");
+             btnEl.setAttribute("style","background:rgb(80, 0, 80)");
             quizOptEl.appendChild(btnEl);
-            quizOptEl.appendChild(breakEl);
-            
         }
      }
      else
@@ -227,11 +128,12 @@ function setOptions(i){
      }
 }
 
-//Function to end the game when the time is up
-
+//End the Game
+let userData = JSON.parse(localStorage.getItem("userData")) || [];
 function endGame(){
-    quizQueEl.innerHTML = "The Quiz has been successfully completed! </br> <strong>Your Score: "+Result+"</strong><br> Please enter your initials below to register your score";
+   quizQueEl.innerHTML = "The Quiz has been successfully completed! </br> <strong>Your Score: "+Result+"</strong><br> Please enter your initials below to register your score";
    document.querySelector(".navbar-text").style.display = "none";
+   console.log(sec);
     while(quizOptEl.firstChild)
     {
       quizOptEl.removeChild(quizOptEl.firstChild);
@@ -241,43 +143,14 @@ function endGame(){
         var submitInitialsEl = document.createElement("button");
         submitInitialsEl.textContent = "Submit Score";
         submitInitialsEl.setAttribute("class","btn btn-dark");
-        
-
-
         quizQueEl.appendChild(breakEl);
         quizQueEl.appendChild(inputEl);
         quizQueEl.appendChild(submitInitialsEl);
         
         submitInitialsEl.addEventListener("click",function(){
-            var existingResult = localStorage.getItem("Highest score");
-            
-            if(existingResult < Result)
-            {
-            localStorage.setItem("Initials",inputEl.value);
-            localStorage.setItem("Highest score",Result);
-            }
-            location.href = "./index.html";
+            userData.push({name: inputEl.value, score: Result});
+            localStorage.setItem("userData", JSON.stringify(userData));
+            location.href = "./HighestScores.html";
         });
 }
 
-
-
-// (function() {
-//     var sec = 60;
-//     function startTimer(){
-//         console.log('timer suppose to go')
-//         var timer = setInterval(function(){
-//             sec--;
-//             document.getElementById('timerDisplay').innerHTML='00:'+sec;
-//             if (sec < 0) {
-//                 clearInterval(timer);
-//                 alert("Time is up!")
-//             }
-//         }, 1000);
-//     }
-//     document.getElementById('incorrect').addEventListener('click', function() {
-//         sec -= 5;
-//         document.getElementById('timerDisplay').innerHTML='00:'+sec;
-//     });
-//     startTimer();
-// })();

@@ -9,7 +9,6 @@
     <title>Document</title>
 </head>
 <body class="bg-body">
-    <!-- <div>Quiz Ends in : <span id="time">0:15</span> minutes!</div> -->
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/index.html">Quiz</a>
@@ -26,28 +25,28 @@
             </li>
             
           </ul>
+          <!-- Count down timer -->
           <span class="navbar-text">
-            Quiz Ends in <span id="time"></span> seconds!
+            Quiz Ends in <span id="time">60</span> seconds!
           </span>
         </div>
       </nav>
 
       <!-- Main Container -->
-      <div class="container" style="padding-top: 170px;">
+      <div class="container">
           <main class="row">
-              <section class="col-md-12" style="text-align: center;">
+              <section class="col-md-12">
                   <h1>Coding Quiz Game</h1>
                   <p class="quiz-description">Here is a great opportunity for you to answer as many questions as possible and win an exciting hamper!! Try it out</p>
                   <button type="button" class="btn btn-dark" id="start-quiz">Start Quiz</button>
+                  <!-- Question -->
                   <p class="quiz-question">
 
                   </p>
+                  <!-- Options for the question -->
                   <ul class="quiz-options">
                    
                   </ul>
-                  <p id="seconds"></p>
-                  <div id="timerDisplay"></div>
-<!-- <button id="incorrect">Simulate Incorrect Answer</button> -->
               </section>
           </main>
       </div>

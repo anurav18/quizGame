@@ -28,24 +28,21 @@
         </div>
       </nav>
 
-      <div class="container">
-        <h1 id="highest-score">Highest Score</h1>
-        <table class="center">
+      <div class="highestscore-container">
+       
+        <h1 id="highest-score">Scores</h1>
+        <table class="scores-table">
           <thead>
-            <tr>
+            <tr id="table-row">
               <th>Initials</th>
               <th>Score</th>
             </tr>
-            <tr>
-              <td id="initials">
-
-              </td>
-              <td id="Score">
-
-              </td>
-            </tr>
           </thead>
         </table>   
+        <div id="center">
+          <button type="button" class="btn btn-primary">Clear Scores</button>
+          <button type="button" class="btn btn-primary" id="play-again">Play Again</button>
+        </div>
       </div>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

@@ -12,7 +12,7 @@ This Game is intended to be a mockup of technical quiz which we experience in ou
 
 ## Additional Features
 
-Highest Scores analysis is available , which will give a capability to compare your scores with your peers. The scores are stored with an Initial Name which is provided at the end of the quiz.
+Highest Score analysis is available , which will give a capability to know the highest score in the game till date. The scores are stored with an Initial Name which is provided at the end of the quiz.
 
 ## Deployed Links
 
